@@ -9,7 +9,7 @@ export class TaskFilterPipe implements PipeTransform {
   transform(items: any, filter: any): any {
         if (!items || !filter) {  
             return items;  
-        }  
+        }
         return items.filter(item => this.applyFilter(item, filter));  
   }
 
@@ -17,7 +17,8 @@ export class TaskFilterPipe implements PipeTransform {
     
     if(null !== filterItem.task && undefined !== filterItem.task && taskItem['taskName'].toLowerCase().indexOf(filterItem.task.toLowerCase()) === -1){
         return false;
-    }else if (null !== filterItem.parentTask && undefined !== filterItem.parentTask && ((null != taskItem['parentTaskDetail'] && taskItem['parentTaskDetail'].parentTaskName.toLowerCase().indexOf(filterItem.parentTask.toLowerCase()) === -1)) || null == taskItem['parentTaskDetail']) {
+    }else if (null !== filterItem.parentTask && undefined !== filterItem.parentTask && "" !== filterItem.parentTask &&
+    (null !== taskItem['parentTaskDetail'] &&  taskItem['parentTaskDetail'].parentTaskName.toLowerCase().indexOf(filterItem.parentTask.toLowerCase()) === -1 || null === taskItem['parentTaskDetail'])) {
         return false;
     }else if((null !== filterItem.startDate && undefined !== filterItem.startDate && taskItem['startDate'].toLowerCase().indexOf(filterItem.startDate.toLowerCase()) === -1) ||
     (null !== filterItem.endDate && undefined !== filterItem.endDate && taskItem['endDate'].toLowerCase().indexOf(filterItem.endDate.toLowerCase()) === -1)){
